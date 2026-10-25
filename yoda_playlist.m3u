@@ -1,0 +1,4 @@
+#EXTM3U
+#EXTINF:-1 tvg-name="Kanal 1",Kanal 1
+#EXTVLCOPT:http-referrer=https://yoda.az/
+https://str.yodacdn.net/azertv/index.m3u8?token=eyJ2IjoyLCJzaXRlIjoieW9kYSIsImlwIjoiNC4yMzYuMTU4LjUxIiwidWFoIjoiNTBiNzk2OGE0M2VlZDRkZSIsImlhdCI6MTc5Mjk2MDU3MCwiZXhwIjoxNzkyOTYyMzcwLCJqdGkiOiI1YmM2MzliMzZhZjBjN2M2In0.fdNPxkehb21B-m8RaBoKJrSatgUQ0MJwhsZ9ODAl06A
