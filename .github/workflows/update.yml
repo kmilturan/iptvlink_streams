@@ -1,7 +1,10 @@
 name: Update Yoda Playlist
 
 on:
-  workflow_dispatch: # İstədiyiniz zaman əllə "Run workflow" düyməsinə basaraq işlədə biləcəksiniz
+  workflow_dispatch: # İstediğiniz zaman elle "Run workflow" butonuna basarak çalıştırabilirsiniz
+
+permissions:
+  contents: write # GitHub Actions botuna repoya yazma (push) izni verir
 
 jobs:
   run-python:
