@@ -1,34 +1,30 @@
 from playwright.sync_api import sync_playwright
 
-def find_yoda_streams():
+def find_yoda_api():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         
-        streams = set()
+        def handle_response(response):
+            url = response.url
+            # API və ya manifest sorğularını yoxlayırıq
+            if "api" in url or ".m3u8" in url or "json" in url:
+                print(f"[CAVAB TAPILDI]: {url}")
+                try:
+                    # Əgər JSON cavabıdırsa, məzmununu oxumağa çalışırıq
+                    if "application/json" in response.headers.get("content-type", ""):
+                        print("JSON Məlumatı:", response.json())
+                except:
+                    pass
 
-        def on_request(request):
-            if ".m3u8" in request.url:
-                streams.add(request.url)
-                print(f"[TAPILDI]: {request.url}")
-
-        page.on("request", on_request)
+        page.on("response", handle_response)
         
-        print("Yoda.az saytına qoşulur...")
+        print("Yoda.az yoxlanılır...")
         page.goto("https://yoda.az/tv/")
+        
+        # Kanalların yüklənməsi üçün gözləyirik
         page.wait_for_timeout(10000)
         browser.close()
 
-        # Tapılan linklərdən .m3u playlist faylı yaradırıq
-        m3u_content = "#EXTM3U\n"
-        for idx, s in enumerate(streams, 1):
-            m3u_content += f'#EXTINF:-1 tvg-name="Kanal {idx}",Kanal {idx}\n'
-            m3u_content += f'#EXTVLCOPT:http-referrer=https://yoda.az/\n'
-            m3u_content += f'{s}\n'
-
-        with open("yoda_playlist.m3u", "w", encoding="utf-8") as f:
-            f.write(m3u_content)
-        print("Playlist uğurla yaradıldı!")
-
 if __name__ == "__main__":
-    find_yoda_streams()
+    find_yoda_api()
